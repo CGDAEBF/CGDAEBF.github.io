@@ -1,28 +1,33 @@
-# CGDAEBF.github.io
-<button onclick='f()'>刷新</button>
-<p id='p'></p>
-<p id='q'></p>
+<button style="visibility:hidden">o</button><button onclick="y--;if(!f(x,y))y++;draw()">o</button><br>
+<button onclick="x--;if(!f(x,y))x++;draw()">o</button><button style="visibility:hidden">o</button><button onclick="x++;if(!f(x,y))x--;draw()">o</button><br>
+<button style="visibility:hidden">o</button><button onclick="y++;if(!f(x,y))y--;draw()">o</button><br>
+<canvas id="c" width="620" height="620" style="border:20px solid #000"></canvas>
 <script>
-let a=0,b=0,ans,tmp,tans,tm,p=document.getElementById('p')
-function f(){
-tm=0;ans=0;tans=0;a+=Date.now()%1201
-p.innerHTML=''
-for(let i=0;i<256;i++){
-a=(a*a*a+b+7)%180503
-b=(b*b*b+a+7)%180503
-p.innerHTML+=`<button id="${i}"${(a%16==0?(' onclick="g('+i+')">q'):'>p')}</button>`
-if(i%16==15)p.innerHTML+='<br>'
-if(a%16==0)tans++;
-}
-q.innerHTML=`共有${tans}个q`;
-}
-function g(k){
-if(tm==0)tm=Date.now()
-ans++
-tmp=document.getElementById(''+k)
-tmp.onclick=''
-tmp.innerHTML='p'
-q.innerHTML=`剩余${tans-ans}个q`
-if(tans==ans)q.innerHTML=`你赢了!用时${(Date.now()-tm)/1000}秒`
-}
+  let cvs=document.getElementById("c"),x=0,y=0,mx=30,my=30,t
+  let c=cvs.getContext("2d")
+  function f(a,b){
+  if(a<0||a>30||b<0||b>30)return 0;
+  if(a%2&&b%2)return 0;
+  if(!(a%2||b%2))return 1;
+  let k=(a+b)%17+7
+  for(let i=0;i<k;i++){
+  a=(b*b*b+a+4)%180503;
+  b=(a*a*a+b+4)%180503;
+  }
+  return a%4;
+  }
+  function draw(){
+  if(x==mx%16*2&&y==my%16*2){
+  mx=(my*my*my+mx+4)%180503;
+  my=(mx*mx*mx+my+4)%180503;
+  }
+  cvs.width=cvs.width
+  for(let i=0;i<=30;i++)
+  for(let j=0;j<=30;j++){
+  if(!f(i,j)){c.fillStyle="#000000";c.fillRect(i*20,j*20,20,20)}
+  }
+  c.strokeRect(x*20+5,y*20+5,10,10)
+  c.fillStyle="#ff0000";c.fillRect(mx%16*40,my%16*40,20,20)
+  }
+  draw();
 </script>
