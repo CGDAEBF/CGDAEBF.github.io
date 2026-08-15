@@ -5,6 +5,10 @@ let cvs=document.getElementById("c"),x=0,y=0,mx=-8,my=8,itv,tks;
 let c=cvs.getContext("2d");
 function draw(){
 tks++;
+if(document.getElementById("i").value=="w"){y--;if(isWall(x,y))y++}
+if(document.getElementById("i").value=="a"){x--;if(isWall(x,y))x++}
+if(document.getElementById("i").value=="s"){y++;if(isWall(x,y))y--}
+if(document.getElementById("i").value=="d"){x++;if(isWall(x,y))x--}
 document.getElementById("i").value=""
 cvs.width=cvs.width
 for(let i=-8;i<=8;i++)
@@ -32,10 +36,5 @@ if(!(x%2||y%2))return 0
 if(x%2)return f(x,y-1)==0||f(x,y+1)==2
 if(y%2)return f(x-1,y)==1||f(x+1,y)==3
 }
-document.getElementById("i").onkeydown=function(e){
-if(e.key=="w"){y--;if(isWall(x,y))y++}
-if(e.key=="a"){x--;if(isWall(x,y))x++}
-if(e.key=="s"){y++;if(isWall(x,y))y--}
-if(e.key=="d"){x++;if(isWall(x,y))x--}}
 itv=setInterval(draw,25)
 </script>
