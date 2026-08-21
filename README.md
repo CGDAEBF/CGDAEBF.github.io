@@ -1,40 +1,33 @@
-<input id="i"><br>
-<canvas id="c" width="340" height="340" style="border:1px solid #000">
+<button onclick="init()">init</button><br><br>
+<canvas id="d" width="70" height="70" style="border:1px solid #000"></canvas><br><br>
+<canvas id="c" width="340" height="340" style="border:1px solid #000"></canvas>
+<p id="p"></p>
 <script>
-let cvs=document.getElementById("c"),x=0,y=0,mx=-8,my=8,itv,tks;
-let c=cvs.getContext("2d");
-function draw(){
-tks++;
-if(document.getElementById("i").value=="w"){y--;if(isWall(x,y))y++}
-if(document.getElementById("i").value=="a"){x--;if(isWall(x,y))x++}
-if(document.getElementById("i").value=="s"){y++;if(isWall(x,y))y--}
-if(document.getElementById("i").value=="d"){x++;if(isWall(x,y))x--}
-document.getElementById("i").value=""
-cvs.width=cvs.width
-for(let i=-8;i<=8;i++)
-for(let j=-8;j<=8;j++)
-if(isWall(i+x,j+y))c.fillRect(i*20+160,j*20+160,20,20)
-c.fillRect(165,165,10,10)
-if(mx<x)mx+=0.0625;
-else if(mx>x)mx-=0.0625;
-if(my<y)my+=0.0625;
-else if(my>y)my-=0.0625;
-if(Math.abs(mx-x)<=0.0625&&Math.abs(my-y)<=0.0625){cvs.style="display:none";clearInterval(itv);}
-c.fillRect((mx-x)*20+160,(my-y)*20+160,20,20)
-}
-function f(x,y){
-let k=((x+y)%13+13)%13+3
-for(let i=0;i<k;i++){
-x=(x*x+y+i)%180503
-y=(y*y+x+13)%180503
-}
-return x%4
-}
-function isWall(x,y){
-if(x%2&&y%2)return 1
-if(!(x%2||y%2))return 0
-if(x%2)return f(x,y-1)==0||f(x,y+1)==2
-if(y%2)return f(x-1,y)==1||f(x+1,y)==3
-}
-itv=setInterval(draw,25)
+    const cvs=document.getElementById('c')
+    const c=cvs.getContext("2d")
+    const dvs=document.getElementById('d')
+    const d=dvs.getContext("2d")
+    let a=1,b=Date.now()%1201,t,x,y,s,mx,mn,k=0
+    function rand(){
+    a=(b*b*b+a+7)%180503;b=(a*a*a+b+7)%180503
+    return a
+    }
+    function init(){
+    s=0;mx=0;mn=10000;draw()
+    }
+    function draw(){
+    t=Date.now()
+    x=rand()%27;y=rand()%27
+    cvs.width=cvs.width;dvs.width=dvs.width
+    for(let i=0;i<34;i++)
+    for(let j=0;j<34;j++){
+    if(rand()%2==0){c.fillRect(i*10,j*10,10,10)
+    if(i-x<7&&i-x>=0&&j-y<7&&j-y>=0)d.fillRect((i-x)*10,(j-y)*10,10,10)}
+    }}
+    cvs.addEventListener('click',(e)=>{
+    const rect=cvs.getBoundingClientRect()
+    const cx=Math.round((e.clientX-rect.left)/10)
+    const cy=Math.round((e.clientY-rect.top)/10)
+    if(cx-x<7&&cx-x>=0&&cy-y<7&&cy-y>=0){t-=Date.now();s+=t=-t;mx=Math.max(mx,t);mn=Math.min(mn,t);k++;if(k==3){k=0;document.getElementById("p").innerHTML=s-mx-mn;cvs.width=cvs.width;dvs.width=dvs.width}else draw()}
+    })
 </script>
