@@ -1,5 +1,5 @@
-<button onclick="init()">init</button><br><br>
-<canvas id="d" width="70" height="70" style="border:1px solid #000"></canvas><br><br>
+<input id="i"><br><input id="j"><br><button onclick="init()">init</button><br>
+<canvas id="d" width="70" height="70" style="border:1px solid #000"></canvas><br>
 <canvas id="c" width="340" height="340" style="border:1px solid #000"></canvas>
 <p id="p"></p>
 <script>
@@ -13,12 +13,13 @@
     return a
     }
     function init(){
-    s=0;mx=0;mn=10000;draw()
+    s=0;mx=0;mn=10000;k=0;cvs.width=cvs.width;dvs.width=dvs.width;document.body.style.background=document.getElementById("j").value;draw()
     }
     function draw(){
     t=Date.now()
     x=rand()%27;y=rand()%27
     cvs.width=cvs.width;dvs.width=dvs.width
+    c.fillStyle=d.fillStyle=document.getElementById("i").value
     for(let i=0;i<34;i++)
     for(let j=0;j<34;j++){
     if(rand()%2==0){c.fillRect(i*10,j*10,10,10)
