@@ -20,7 +20,7 @@
     else return f(i-1,j)==1||f(i+1,j)==3
     }
     }
-    function draw(){for(let i=0;i!=25;i++)for(let j=0;j!=25;j++)if(g(i,j))c.fillRect(i*24,j*24,24,24);if(!b)c.fillRect(x*24+6,y*24+6,12,12);else c.fillRect(x*24+10,y*24+10,4,4);if(x==24&&y==24)clear()}
+    function draw(){for(let i=0;i!=25;i++)for(let j=0;j!=25;j++)if(g(i,j))c.fillRect(i*24,j*24,24,24);if(!b)c.fillRect(x*24+6,y*24+6,12,12);else c.fillRect(x*24+10,y*24+10,4,4);if(x==24)if(y==24)clear()}
     function ri(){
     if(b){if(g(x+1,y)==1){x+=2;b=0}else if(g(x+3,y)==1)x+=2;else{x+=4;b=0}}
     else{if(g(x+1,y)==0)x+=2;else if(g(x-1,y)!=1)while(g(x-1,y)==0)x-=2;else{b=1;s++;t--}}
@@ -28,7 +28,7 @@
     }
     function up(){
     if(b){if(g(x,y+1)==1){y+=2;b=0}else if(g(x,y+3)==1)y+=2;else{y+=4;b=0}}
-    else{if(g(x,y+1)==0)y+=2;else if(g(x,y-1)!=1)while(g(x,y-1f)==0)y-=2;else b=1}
+    else{if(g(x,y+1)==0)y+=2;else if(g(x,y-1)!=1)while(g(x,y-1)==0)y-=2;else b=1}
     cvs.width=cvs.width;draw()
     }
     function clear(){
